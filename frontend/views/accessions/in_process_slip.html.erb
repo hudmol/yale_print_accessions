@@ -1,0 +1,99 @@
+
+<%= include_theme_css %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6"><%= Time.now.strftime('%d %b %Y') %></div>
+        <div class="col-xs-6"><%= @accession.created_by %></div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-4">DEPT (<%= @accession.id_0 %>)</div>
+        <div class="col-xs-4 text-center">BibID</div>
+        <div class="col-xs-4 text-right"><%= @accession.accession_date %></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">Adds to:</div>
+        <div class="col-xs-6 text-right">Serial / Trans / Sub</div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12 text-center">IN-PROCESS SHEET -- <%= current_repo['repo_code'] %></div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-12">To conservation for:</div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12">Author</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Title</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Place</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Pub.</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Year</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Other Biblio Fields as determined</div>
+      </div>
+
+      <br>
+      <br>
+
+      <div class="row">
+        <div class="col-xs-12">Bibliographic Citation</div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-6">FUND:</div>
+        <div class="col-xs-6">PRICE:</div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-12">Curator Notes:</div>
+      </div>
+
+      <div style="padding-bottom: 16em"></div>
+
+      <div class="row">
+        <div class="col-xs-12">Make tracing for:</div>
+      </div>
+
+      <div style="padding-bottom: 8em"></div>
+
+      <div class="row">
+        <div class="col-xs-12">Class:</div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-6">Ref.</div>
+        <div class="col-xs-6">Stack Ref</div>
+      </div>
+    </div>
+  </div>
+</div>
