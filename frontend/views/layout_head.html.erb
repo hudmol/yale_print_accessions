@@ -4,3 +4,7 @@
     ACCESSION_ID = <%= @accession.id %>;
   </script>
 <% end %>
+
+<% if controller_name == 'accessions' && ['new', 'edit'].include?(action_name) %>
+  <%= javascript_include_tag "#{AppConfig[:frontend_prefix]}assets/yale_simplified_accession_form.js" %>
+<% end %>
