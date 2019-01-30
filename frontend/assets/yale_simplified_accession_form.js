@@ -24,18 +24,10 @@ function SimplifiedAccessionForm() {
  	 ],
  	'accession_user_defined_':
  	[
-	 'accession_user_defined__boolean_1_'
+	 'accession_user_defined__boolean_1_',
+	 'accession_user_defined__string_2_'
 	 ]
     }
-
-// 	'accession_user_defined_':
-// 	[
-// 	 'Authorization Received (True/False)',
-// 	 'Voyager Bib ID',
-
-// 	 'User Defined (in use)'
-//      ]
-
 
     this.setupLink();
 
@@ -56,17 +48,22 @@ SimplifiedAccessionForm.prototype.showingSimplified = function() {
 };
 
 SimplifiedAccessionForm.prototype.setButtonLabel = function() {
-    $('#yalepa_toggle_button').html(this.showingSimplified() ? 'Show Full Form' : 'Show Simplified Form');
+    var icon = this.showingSimplified() ? 'glyphicon-resize-full' : 'glyphicon-resize-small';
+    $('#yalepa_toggle_button').html('');
+    $('#yalepa_toggle_button').append(this.showingSimplified() ? 'Show Full Form' : 'Show Simplified Form');
+    $('#yalepa_toggle_button').append($('<span>').addClass('pull-right glyphicon ' + icon));
 };
 
 SimplifiedAccessionForm.prototype.setupLink = function() {
     var self = this;
 
+    var $ul = $('<ul>').addClass('as-nav-list nav').css('margin-bottom', '10px');
     var $li = $('<li>');
     var $a = $('<a>').attr('href', 'javascript:void(0)').attr('id', 'yalepa_toggle_button');
 
     $li.append($a);
-    $('#other-dropdown > .dropdown-menu').append($li);
+    $ul.append($li);
+    $('#archivesSpaceSidebar').prepend($ul);
     this.setButtonLabel();
 
     $a.on('click', function() {
