@@ -26,3 +26,10 @@ Enable the plugin by editing the file in `config/config.rb`:
 See also:
 
   https://github.com/archivesspace/archivesspace/blob/master/plugins/README.md
+
+## Dependencies
+
+This plugin relies on the following plugins:
+
+* Payments Module - https://github.com/hudmol/payments_module
+* Material Types - https://github.com/hudmol/material_types
