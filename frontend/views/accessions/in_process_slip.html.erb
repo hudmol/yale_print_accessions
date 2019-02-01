@@ -94,7 +94,7 @@
     </div>
     <div class="col-xs-6">
       <div class="row">
-        <div class="col-xs-12"><%= authors.join("; ") %></div>
+        <div class="col-xs-12"><%= authors.uniq.sort.join("; ") %></div>
       </div>
       <div class="row">
         <div class="col-xs-12"><%= @accession["title"] %></div>
@@ -103,10 +103,10 @@
         <div class="col-xs-12"><%= @accession.user_defined ? @accession.user_defined["string_3"] : "" %></div>
       </div>
       <div class="row">
-        <div class="col-xs-12"><%= publishers.join("; ") %></div>
+        <div class="col-xs-12"><%= publishers.uniq.sort.join("; ") %></div>
       </div>
       <div class="row">
-        <div class="col-xs-12"><%= creation_years.join("; ") %></div>
+        <div class="col-xs-12"><%= creation_years.uniq.sort.join("; ") %></div>
       </div>
       <div class="row">
         <div class="col-xs-12">FIXME Other Biblio Fields as determined</div>
@@ -121,7 +121,7 @@
       <br>
 
       <div class="row">
-        <div class="col-xs-6">FUND: <%= payment_fund_codes.join(", ") %></div>
+        <div class="col-xs-6">FUND: <%= payment_fund_codes.uniq.sort.join(", ") %></div>
         <div class="col-xs-6">PRICE: <%= payment_currency %> <%= payment_total %></div>
       </div>
 
