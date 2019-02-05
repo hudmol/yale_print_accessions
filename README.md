@@ -1,6 +1,6 @@
 # Yale Print Accessions
 
-An ArchivesSpace plugin providing custom Accession print options for Yale University.
+An ArchivesSpace plugin providing custom Accession options for Yale University.
 
 ## Getting Started
 
@@ -26,6 +26,17 @@ Enable the plugin by editing the file in `config/config.rb`:
 See also:
 
   https://github.com/archivesspace/archivesspace/blob/master/plugins/README.md
+
+
+## Configuration
+
+By default this plugin will be enabled for all repositories. To restrict it to
+a subset of repositories, add the following configuration option:
+
+    AppConfig[:yale_print_accessions] = { :repos => ['REPO1', 'MOO'] }
+
+Where the values in :repos are REPO_CODES of enabled repositories.
+
 
 ## Dependencies
 
