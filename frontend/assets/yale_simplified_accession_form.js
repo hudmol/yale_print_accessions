@@ -25,7 +25,21 @@ function SimplifiedAccessionForm() {
  	'accession_user_defined_':
  	[
 	 'accession_user_defined__boolean_1_',
-	 'accession_user_defined__string_2_'
+	 'accession_user_defined__boolean_2_',
+	 'accession_user_defined__real_1_',
+	 'accession_user_defined__string_1_',
+	 'accession_user_defined__string_2_',
+	 'accession_user_defined__string_3_',
+	 'accession_user_defined__string_4_',
+	 'accession_user_defined__text_1_',
+	 'accession_user_defined__text_2_',
+	 'accession_user_defined__text_3_',
+	 'accession_user_defined__text_4_',
+	 'accession_user_defined__text_5_',
+	 'accession_user_defined__date_1_',
+	 'accession_user_defined__date_2_',
+	 'accession_user_defined__enum_1_',
+	 'accession_user_defined__enum_2_'
 	 ]
     }
 
