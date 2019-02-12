@@ -1,6 +1,6 @@
 <% if !AppConfig.has_key?(:yale_print_accessions) ||
       !AppConfig[:yale_print_accessions].has_key?(:repos) ||
-      AppConfig[:yale_print_accessions][:repos].include?(current_repo['repo_code']) %>
+      (current_repo && AppConfig[:yale_print_accessions][:repos].include?(current_repo['repo_code'])) %>
 
   <% if controller_name == 'accessions' && ['show', 'edit'].include?(action_name) %>
     <%= javascript_include_tag "#{AppConfig[:frontend_prefix]}assets/yale_print_accessions.js" %>
