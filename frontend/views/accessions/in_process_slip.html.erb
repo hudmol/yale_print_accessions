@@ -24,25 +24,21 @@
     end
   end
 
-  creation_years = []
+  publication_years = []
   ASUtils.wrap(@accession.dates).each do |date|
-    if date["label"] == "creation"
+    if date["label"] == "publication"
       if date["begin"]
-        creation_years << date["begin"][0..3]
+        publication_years << date["begin"][0..3]
       elsif date["end"]
-        creation_years << date["end"][0..3]
+        publication_years << date["end"][0..3]
       else
-        creation_years << date["expression"]
+        publication_years << date["expression"]
       end
     end
   end
 
   payment_fund_codes = []
-  payment_total = ""
-  payment_currency = ""
   if @accession.payment_summary
-    payment_total = @accession.payment_summary["total_price"]
-    payment_currency = @accession.payment_summary["currency"]
     ASUtils.wrap(@accession.payment_summary["payments"]).each do |payment|
       payment_fund_codes << payment["fund_code"]
     end
@@ -60,12 +56,30 @@
     </div>
     <div class="col-xs-6">
       <div class="row">
-        <div class="col-xs-4"><%= @accession.id_1 %></div>
-        <div class="col-xs-4 text-center"><%= @accession.user_defined ? @accession.user_defined["string_2"] : "" %></div>
+        <div class="col-xs-4">
+          <% if @accession.id_1 %>
+            <%= @accession.id_1 %>
+          <% else %>
+            <span class="text-muted">Dept not recorded</span>
+          <% end %>
+        </div>
+        <div class="col-xs-4 text-center">
+          <% if @accession.user_defined && (bibid = @accession.user_defined["string_2"]) %>
+            <%= bibid %>
+          <% else %>
+            <span class="text-muted">BibID not recorded</span>
+          <% end %>
+        </div>
         <div class="col-xs-4 text-right"><%= Date::strptime(@accession.accession_date, "%Y-%m-%d").strftime('%d %b %Y') %></div>
       </div>
       <div class="row">
-        <div class="col-xs-12"><%= active_material_types.sort.join(', ') %></div>
+        <div class="col-xs-12">
+          <% unless active_material_types.empty? %>
+            <%= active_material_types.sort.join(', ') %>
+          <% else %>
+            <span class="text-muted">Material Types not recorded</span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -94,60 +108,96 @@
     </div>
     <div class="col-xs-6">
       <div class="row">
-        <div class="col-xs-12"><%= authors.uniq.sort.join("; ") %></div>
+        <div class="col-xs-12">
+          <% unless authors.empty? %>
+            <%= authors.uniq.sort.join("; ") %>
+          <% else %>
+            <span class="text-muted">Author not recorded</span>
+          <% end %>
+        </div>
       </div>
       <div class="row">
-        <div class="col-xs-12"><%= @accession["title"] %></div>
+        <div class="col-xs-11 col-xs-push-1"><%= @accession["title"] %></div>
       </div>
       <div class="row">
-        <div class="col-xs-12"><%= @accession.user_defined ? @accession.user_defined["string_3"] : "" %></div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12"><%= publishers.uniq.sort.join("; ") %></div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12"><%= creation_years.uniq.sort.join("; ") %></div>
+        <div class="col-xs-11 col-xs-push-1">
+          <% if @accession.user_defined && (place = @accession.user_defined["string_3"]) %>
+            <%= place %>:&nbsp;
+          <% else %>
+            <span class="text-muted">Place not recorded</span>:&nbsp;
+          <% end %>
+
+          <% unless (publisher_info = [publishers.uniq.sort.join(", "), publication_years.uniq.sort.join(', ')].reject(&:empty?).join(', ')).empty? %>
+            <%= publisher_info %>
+          <% else %>
+            <span class="text-muted">Publisher not recorded</span>
+          <% end %>
+        </div>
       </div>
       <!-- <div class="row">
-        <div class="col-xs-12">TODO Other Biblio Fields as determined</div>
+        <div class="col-xs-11 col-xs-push-1">TODO Other Biblio Fields as determined</div>
       </div> -->
 
       <br>
+      <br>
 
       <div class="row">
-        <div class="col-xs-12"><%== @accession.user_defined ? preserve_newlines(@accession.user_defined["text_5"]) : "" %></div>
+        <div class="col-xs-12">
+          <% if @accession.user_defined && (citation = @accession.user_defined["text_5"]) %>
+            <%== preserve_newlines(citation) %>:
+          <% else %>
+            <span class="text-muted">Bibliographic Citation not recorded</span>
+          <% end %>
+        </div>
       </div>
 
       <br>
 
       <div class="row">
-        <div class="col-xs-6">FUND: <%= payment_fund_codes.uniq.sort.join(", ") %></div>
-        <div class="col-xs-6">PRICE: <%= payment_currency %> <%= payment_total %></div>
+        <div class="col-xs-12">
+          FUND: 
+          <% unless payment_fund_codes.empty?  %>
+            <%= payment_fund_codes.uniq.sort.join(", ") %>
+          <% else %>
+            <span class="text-muted">Payments Codes not recorded</span>
+          <% end %>
+        </div>
       </div>
 
       <br>
 
       <div class="row">
-        <div class="col-xs-12">Curator Notes:</div>
-      </div>
-
-      <div style="padding-bottom: 16em"></div>
-
-      <div class="row">
-        <div class="col-xs-12">Make tracing for:</div>
-      </div>
-
-      <div style="padding-bottom: 8em"></div>
-
-      <div class="row">
-        <div class="col-xs-12">Class:</div>
+        <div class="col-xs-12">Plating Information:</div>
       </div>
 
       <br>
 
       <div class="row">
-        <div class="col-xs-6">Ref.</div>
-        <div class="col-xs-6">Stack Ref</div>
+        <div class="col-xs-12">
+          <% if @accession.user_defined && (plating_info = @accession.user_defined["text_4"]) %>
+            <%== preserve_newlines(plating_info) %>:
+          <% else %>
+            <span class="text-muted">Plating Information not recorded</span>
+          <% end %>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-12">Notes:</div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <% if @accession.general_note %>
+            <%== preserve_newlines(@accession.general_note) %>:
+          <% else %>
+            <span class="text-muted">Note not recorded</span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
