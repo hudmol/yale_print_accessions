@@ -175,7 +175,7 @@
       <div class="row">
         <div class="col-xs-12">
           <% if @accession.user_defined && (plating_info = @accession.user_defined["text_4"]) %>
-            <%== preserve_newlines(plating_info) %>:
+            <%== preserve_newlines(plating_info) %>
           <% else %>
             <span class="text-muted">Plating Information not recorded</span>
           <% end %>
@@ -193,7 +193,7 @@
       <div class="row">
         <div class="col-xs-12">
           <% if @accession.general_note %>
-            <%== preserve_newlines(@accession.general_note) %>:
+            <%== preserve_newlines(@accession.general_note) %>
           <% else %>
             <span class="text-muted">Note not recorded</span>
           <% end %>
