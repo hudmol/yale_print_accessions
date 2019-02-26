@@ -57,28 +57,18 @@
     <div class="col-xs-6">
       <div class="row">
         <div class="col-xs-4">
-          <% if @accession.id_1 %>
-            <%= @accession.id_1 %>
-          <% else %>
-            <span class="text-muted">Dept not recorded</span>
-          <% end %>
+          <%= @accession.id_1 %>
         </div>
         <div class="col-xs-4 text-center">
           <% if @accession.user_defined && (bibid = @accession.user_defined["string_2"]) %>
             <%= bibid %>
-          <% else %>
-            <span class="text-muted">BibID not recorded</span>
           <% end %>
         </div>
         <div class="col-xs-4 text-right"><%= Date::strptime(@accession.accession_date, "%Y-%m-%d").strftime('%d %b %Y') %></div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <% unless active_material_types.empty? %>
-            <%= active_material_types.sort.join(', ') %>
-          <% else %>
-            <span class="text-muted">Material Types not recorded</span>
-          <% end %>
+          <%= active_material_types.sort.join(', ') %>
         </div>
       </div>
     </div>
@@ -112,7 +102,7 @@
           <% unless authors.empty? %>
             <%= authors.uniq.sort.join("; ") %>
           <% else %>
-            <span class="text-muted">Author not recorded</span>
+            <br>
           <% end %>
         </div>
       </div>
@@ -121,17 +111,9 @@
       </div>
       <div class="row">
         <div class="col-xs-11 col-xs-push-1">
-          <% if @accession.user_defined && (place = @accession.user_defined["string_3"]) %>
-            <%= place %>:&nbsp;
-          <% else %>
-            <span class="text-muted">Place not recorded</span>:&nbsp;
-          <% end %>
-
-          <% unless (publisher_info = [publishers.uniq.sort.join(", "), publication_years.uniq.sort.join(', ')].reject(&:empty?).join(', ')).empty? %>
-            <%= publisher_info %>
-          <% else %>
-            <span class="text-muted">Publisher not recorded</span>
-          <% end %>
+          <% place = @accession.user_defined ? @accession.user_defined["string_3"] : nil %>
+          <% publisher_info = [publishers.uniq.sort.join(", "), publication_years.uniq.sort.join(', ')].reject(&:empty?).join(', ') %>
+          <%= [place, publisher_info].reject(&:blank?).join(': ') %>
         </div>
       </div>
       <!-- <div class="row">
@@ -146,7 +128,7 @@
           <% if @accession.user_defined && (citation = @accession.user_defined["text_5"]) %>
             <%== preserve_newlines(citation) %>:
           <% else %>
-            <span class="text-muted">Bibliographic Citation not recorded</span>
+            <br>
           <% end %>
         </div>
       </div>
@@ -155,12 +137,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-          FUND: 
-          <% unless payment_fund_codes.empty?  %>
-            <%= payment_fund_codes.uniq.sort.join(", ") %>
-          <% else %>
-            <span class="text-muted">Payments Codes not recorded</span>
-          <% end %>
+          FUND: <%= payment_fund_codes.uniq.sort.join(", ") %>
         </div>
       </div>
 
@@ -177,7 +154,8 @@
           <% if @accession.user_defined && (plating_info = @accession.user_defined["text_4"]) %>
             <%== preserve_newlines(plating_info) %>
           <% else %>
-            <span class="text-muted">Plating Information not recorded</span>
+            <br>
+            <br>
           <% end %>
         </div>
       </div>
@@ -195,7 +173,8 @@
           <% if @accession.general_note %>
             <%== preserve_newlines(@accession.general_note) %>
           <% else %>
-            <span class="text-muted">Note not recorded</span>
+            <br>
+            <br>
           <% end %>
         </div>
       </div>
